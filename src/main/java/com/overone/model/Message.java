@@ -1,4 +1,4 @@
-package com.overone.controller.model;
+package com.overone.model;
 
 public class Message {
     private Long id;

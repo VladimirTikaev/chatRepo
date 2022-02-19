@@ -1,6 +1,9 @@
 package com.overone.controller;
 
-import com.overone.controller.model.Message;
+
+import com.overone.model.Message;
+import com.overone.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +16,19 @@ import java.util.List;
 
 @Controller
 public class MainController {
+    @Autowired
+    private MessageService messageService;
+
 
     @GetMapping("/hello")
-    public String hello(){
+    public String hello() {
         return "hello";
     }
 
     @PostMapping("/chat")
-    public String chat(@RequestParam("sender") String sender, Model model){
+    public String chat(@RequestParam("sender") String sender, Model model) {
         model.addAttribute("sender123", sender);
+        model.addAttribute("messages", messageService.getAllMessages());
         return "chat";
     }
 
