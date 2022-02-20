@@ -20,7 +20,7 @@ public class MainController {
 
     @PostMapping("/chat")
     public String chat(@RequestParam("sender") String sender, Model model) {
-        model.addAttribute("sender123", sender);
+        model.addAttribute("sender", sender);
         model.addAttribute("messages", messageService.getAllMessages());
         return "chat";
     }
