@@ -27,7 +27,7 @@ public class MainController {
 
     @PostMapping("/chat")
     public String chat(@RequestParam("sender") String sender, Model model) {
-        model.addAttribute("sender123", sender);
+        model.addAttribute("sedsfsnder123", sender);
         model.addAttribute("messages", messageService.getAllMessages());
         return "chat";
     }
