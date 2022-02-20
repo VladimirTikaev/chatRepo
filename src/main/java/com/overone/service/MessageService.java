@@ -13,8 +13,7 @@ public class MessageService {
     @Autowired
     private MessageRepo messageRepo;
 
-    public List<Message> getAllMessages(){
+    public List<Message> getAllMessages() {
         return messageRepo.findAll();
     }
-
 }
