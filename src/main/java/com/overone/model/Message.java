@@ -1,5 +1,7 @@
 package com.overone.model;
 
+import java.util.Objects;
+
 public class Message {
     private Long id;
     private String time;
@@ -46,5 +48,28 @@ public class Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", time='" + time + '\'' +
+                ", sender='" + sender + '\'' +
+                ", text='" + text + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return Objects.equals(id, message.id) && Objects.equals(time, message.time) && Objects.equals(sender, message.sender) && Objects.equals(text, message.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, time, sender, text);
     }
 }
