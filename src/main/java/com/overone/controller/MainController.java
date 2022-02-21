@@ -24,4 +24,16 @@ public class MainController {
         model.addAttribute("messages", messageService.getAllMessages());
         return "chat";
     }
+
+    @PostMapping("/addMessage")
+    public String addMessage(@RequestParam("sender") String sender, @RequestParam("text") String text, Model model) {
+        if (messageService.addMessage(sender, text)) {
+            model.addAttribute("sender", sender);
+            model.addAttribute("messages", messageService.getAllMessages());
+            return "chat";
+        }
+        model.addAttribute("sender", sender);
+        model.addAttribute("errorMessage", "Add message Error");
+        return "errorPage";
+    }
 }

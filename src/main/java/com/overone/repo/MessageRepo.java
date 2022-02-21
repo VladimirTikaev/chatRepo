@@ -4,10 +4,7 @@ import com.overone.model.Message;
 import com.overone.utils.DBUtils;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,11 @@ public class MessageRepo {
 
         try (Connection dbConn = DBUtils.getDBConn();
              Statement allMessages = dbConn.createStatement();
-             ResultSet rs = allMessages.executeQuery("Select * from message");
+             ResultSet rs = allMessages.executeQuery("SELECT * FROM " +
+                     "(SELECT * FROM chat.message " +
+                     "ORDER BY id desc " +
+                     "LIMIT 12) o " +
+                     "ORDER BY id asc ")
         ) {
             while (rs.next()) {
                 messageList.add(new Message(rs.getLong("id"),
@@ -32,6 +33,20 @@ public class MessageRepo {
         }
 
         return messageList;
+    }
+
+    public boolean save(Message message) {
+        try (Connection dbConn = DBUtils.getDBConn()
+        ) {
+            PreparedStatement saveMessage = dbConn.prepareStatement("Insert into message (time, sender, text) values (?, ?, ?)");
+            saveMessage.setString(1, message.getTime());
+            saveMessage.setString(2, message.getSender());
+            saveMessage.setString(3, message.getText());
+            return saveMessage.executeUpdate() == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
 }
