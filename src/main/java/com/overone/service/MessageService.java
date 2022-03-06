@@ -18,6 +18,10 @@ public class MessageService {
         return messageRepo.findAll();
     }
 
+    public List<Message> getAllMessagesHiber() {
+        return messageRepo.findAllHiber();
+    }
+
     public boolean addMessage(String sender, String text) {
         if (text == null || text.isEmpty()) return false;
         Message message = new Message();

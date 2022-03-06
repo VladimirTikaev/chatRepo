@@ -3,7 +3,7 @@ package com.overone.model;
 import java.util.Objects;
 
 public class Message {
-    private Long id;
+    private int id;
     private String time;
     private String sender;
     private String text;
@@ -11,18 +11,18 @@ public class Message {
     public Message() {
     }
 
-    public Message(Long id, String time, String sender, String text) {
+    public Message(int id, String time, String sender, String text) {
         this.id = id;
         this.time = time;
         this.sender = sender;
         this.text = text;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

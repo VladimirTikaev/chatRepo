@@ -36,4 +36,12 @@ public class MainController {
         model.addAttribute("errorMessage", "Add message Error");
         return "errorPage";
     }
+
+    @PostMapping("/chatHiber")
+    public String chatHiber(@RequestParam("sender") String sender, Model model) {
+        model.addAttribute("sender", sender);
+        model.addAttribute("messages", messageService.getAllMessagesHiber());
+        return "chatHiber";
+    }
+
 }

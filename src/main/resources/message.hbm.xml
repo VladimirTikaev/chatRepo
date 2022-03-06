@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.overone.model.Message" table="message">
+        <meta attribute="class-description">
+            This class contains message details.
+        </meta>
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="time" column="time" type="string"/>
+        <property name="sender" column="sender" type="string"/>
+        <property name="text" column="text" type="string"/>
+    </class>
+</hibernate-mapping>

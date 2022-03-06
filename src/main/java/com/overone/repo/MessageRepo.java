@@ -2,6 +2,10 @@ package com.overone.repo;
 
 import com.overone.model.Message;
 import com.overone.utils.DBUtils;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -22,7 +26,7 @@ public class MessageRepo {
                      "ORDER BY id asc ")
         ) {
             while (rs.next()) {
-                messageList.add(new Message(rs.getLong("id"),
+                messageList.add(new Message(rs.getInt("id"),
                         rs.getString("time"),
                         rs.getString("sender"),
                         rs.getString("text")));
@@ -32,6 +36,16 @@ public class MessageRepo {
             throwables.printStackTrace();
         }
 
+        return messageList;
+    }
+
+    public List<Message> findAllHiber() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Message> messageList = session.createQuery("from Message").list();
+        transaction.commit();
+        session.close();
         return messageList;
     }
 
